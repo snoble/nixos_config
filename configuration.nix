@@ -26,6 +26,8 @@ in {
     extraGroups = [ "root" ];
   };
 
+  users.defaultUserShell = pkgs.fish;
+
   security.sudo.wheelNeedsPassword = false;
 
   # Disable systemd units that don't make sense on WSL
@@ -61,5 +63,8 @@ in {
     pkgs.awscli2
     pkgs.nodePackages.pyright
     pkgs.nodePackages.typescript
+    pkgs.fish
+    pkgs.openssh
+    pkgs.ruby
   ];
 }
