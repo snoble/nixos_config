@@ -66,5 +66,6 @@ in {
     pkgs.fish
     pkgs.openssh
     pkgs.ruby
+    pkgs.protobuf
   ];
 }
