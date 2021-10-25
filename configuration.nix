@@ -67,5 +67,6 @@ in {
     pkgs.openssh
     pkgs.ruby
     pkgs.protobuf
+    pkgs.mosh
   ];
 }
