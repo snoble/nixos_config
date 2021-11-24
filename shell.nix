@@ -24,6 +24,11 @@
     pkgs.ruby
     pkgs.protobuf
     pkgs.mosh
+    pkgs.libdvdcss
+    pkgs.rename
+    pkgs.elmPackages.elm
+    pkgs.elmPackages.elm-format
+    pkgs.nodePackages.npm
   ];
   }
 
