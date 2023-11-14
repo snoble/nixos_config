@@ -40,6 +40,7 @@ pkgs.mkShell {
     pkgs.gh
     pkgs.time
     pkgs.node2nix
+    pkgs.nix-prefetch-git
   ];
   shellHook = let
     tmuxConf = pkgs.writeText "tmux.conf" ''
