@@ -31,6 +31,32 @@ let
     doomPrivateDir = ./doom.d;
     emacsPackagesOverlay = myEmacsOverlay;
   };
+  awscli2-custom = pkgs.awscli2.overrideAttrs (oldAttrs: {
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.makeWrapper ];
+
+    doCheck = false;
+
+    # Run any postInstall steps from the original definition, and then wrap the
+    # aws program with a wrapper that sets the PYTHONPATH env var to the empty
+    # string
+    postInstall = ''
+      ${oldAttrs.postInstall}
+      wrapProgram $out/bin/aws --set PYTHONPATH=
+    '';
+  });
+  #  python = pkgs.python3.withPackages
+  #    (ps:
+  #      with ps;
+  #      [
+  #        (pkgs.python311Packages.urllib3.overridePythonAttrs (oldAttrs: rec {
+  #          version = "1.26.18";
+  #          src = oldAttrs.src.override {
+  #            inherit version;
+  #            sha256 =
+  #              "0000000000000000000000000000000000000000000000000000"; # replace with the correct hash
+  #          };
+  #        }))
+  #      ]);
 
 in pkgs.mkShell {
   buildInputs = [ nix-doom-emacs ];
@@ -41,16 +67,18 @@ in pkgs.mkShell {
     pkgs.tmux
     pkgs.git
     pkgs.gnumake
-    pkgs.python3
     pkgs.pipenv
     pkgs.wget
-    pkgs.nodejs-18_x
+    pkgs.nodejs_20
     pkgs.autossh
     pkgs.google-cloud-sdk
+    pkgs.go
     pkgs.fswatch
     pkgs.nodePackages.yarn
     pkgs.sbt
-    pkgs.awscli2
+    pkgs.inetutils
+    awscli2-custom
+    # pkgs.python3
     pkgs.nodePackages.pyright
     pkgs.nodePackages.typescript
     pkgs.nodePackages.typescript-language-server
@@ -80,6 +108,7 @@ in pkgs.mkShell {
       set-option -g xterm-keys on
       set -g default-terminal "screen-256color"
       set -g mouse on
+      set-window-option -g mode-keys vi
       set-option -g default-shell ${pkgs.fish}/bin/fish
     '';
   in ''

@@ -11,7 +11,7 @@ pkgs.mkShell {
     pkgs.python3
     pkgs.pipenv
     pkgs.wget
-    pkgs.nodejs-18_x
+    pkgs.nodejs_20
     pkgs.autossh
     pkgs.google-cloud-sdk
     pkgs.fswatch
@@ -41,6 +41,7 @@ pkgs.mkShell {
     pkgs.time
     pkgs.node2nix
     pkgs.nix-prefetch-git
+    pkgs.watchman
   ];
   shellHook = let
     tmuxConf = pkgs.writeText "tmux.conf" ''
