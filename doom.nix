@@ -69,7 +69,7 @@ in pkgs.mkShell {
     pkgs.gnumake
     pkgs.pipenv
     pkgs.wget
-    pkgs.nodejs_20
+    pkgs.nodejs_21
     pkgs.autossh
     pkgs.google-cloud-sdk
     pkgs.go
@@ -102,6 +102,7 @@ in pkgs.mkShell {
     pkgs.time
     pkgs.node2nix
     pkgs.nix-prefetch-git
+    pkgs.mesa
   ];
   shellHook = let
     tmuxConf = pkgs.writeText "tmux.conf" ''
